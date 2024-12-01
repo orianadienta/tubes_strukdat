@@ -1,6 +1,9 @@
 package com.strukdat.data;
 
 import com.strukdat.model.Tree;
+import com.strukdat.gimmick.GimmickInterface;
+import com.strukdat.gimmick.RandomGimmick;
+import com.strukdat.gimmick.TicTacToeGimmick;
 import java.io.InputStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +18,23 @@ public class JSONReader {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String key = jsonObject.keys().next();
                     String value = jsonObject.getString(key);
-                    rbTree.add(key, value);
+                    GimmickInterface gimmick = null;
+                    if (jsonObject.has("gimmick")) {
+                        String gimmickType = jsonObject.getString("gimmick");
+                        switch (gimmickType) {
+                            case "random":
+                                gimmick = new RandomGimmick();
+                                break;
+                            case "tictactoe":
+                                gimmick = new TicTacToeGimmick();
+                                break;
+                        }
+                    }
+                    if (gimmick != null) {
+                        rbTree.add(key, value, gimmick);
+                    } else {
+                        rbTree.add(key, value);
+                    }
                 }
             } else {
                 System.err.println("Failed to load data.json. The resource is not found.");
@@ -25,6 +44,3 @@ public class JSONReader {
         }
     }
 }
-
-
-

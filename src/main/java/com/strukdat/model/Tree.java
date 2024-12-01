@@ -1,5 +1,6 @@
 package com.strukdat.model;
 
+import com.strukdat.gimmick.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,20 +16,22 @@ public class Tree<K extends Comparable<K>, V> {
         this.root = TNULL;
     }
 
-    public List<Node<K, V>> search(String searchKey) {
-        List<Node<K, V>> results = new ArrayList<>();
+    public List<String> search(String searchKey) {
+        List<String> results = new ArrayList<>();
         searchRecursive(root, searchKey, results);
         return results;
     }
 
-    private void searchRecursive(Node<K, V> node, String searchKey, List<Node<K, V>> results) {
+    private void searchRecursive(Node<K, V> node, String searchKey, List<String> results) {
         if (node == TNULL) return;
 
-        // Check if current node's key matches search criteria
         if (matchesSearchCriteria(node.getKey().toString(), searchKey)) {
-            results.add(node);
+            if (node.getGimmick() != null) {
+                results.add(node.getGimmick().runGimmick());
+            } else {
+                results.add(node.getValue().toString());
+            }
         }
-        // Recursively search left and right subtrees
         searchRecursive(node.getLeft(), searchKey, results);
         searchRecursive(node.getRight(), searchKey, results);
     }
@@ -36,17 +39,50 @@ public class Tree<K extends Comparable<K>, V> {
     private boolean matchesSearchCriteria(String fullKey, String searchKey) {
         String lowerFullKey = fullKey.toLowerCase();
         String lowerSearchKey = searchKey.toLowerCase();
-
-        // Full key match
         if (lowerFullKey.equals(lowerSearchKey)) return true;
-
-        // Prefix match
         if (lowerFullKey.startsWith(lowerSearchKey)) return true;
-
-        // Substring match
         if (lowerFullKey.contains(lowerSearchKey)) return true;
 
         return false;
+    }
+
+    // method add untuk node dengan gimmick
+    public void add(K key, V value, GimmickInterface gimmick) {
+        Node<K, V> newNode = new Node<>(key, value, gimmick);
+        newNode.setLeft(TNULL);
+        newNode.setRight(TNULL);
+        newNode.setParent(null);
+        newNode.setRed(true);
+
+        Node<K, V> parent = null;
+        Node<K, V> currentNode = this.root;
+
+        while (currentNode != TNULL) {
+            parent = currentNode;
+            if (newNode.getKey().compareTo(currentNode.getKey()) < 0) {
+                currentNode = currentNode.getLeft();
+            } else {
+                currentNode = currentNode.getRight();
+            }
+        }
+        newNode.setParent(parent);
+        if (parent == null) {
+            root = newNode;
+        } else if (newNode.getKey().compareTo(parent.getKey()) < 0) {
+            parent.setLeft(newNode);
+        } else {
+            parent.setRight(newNode);
+        }
+
+        if (newNode.getParent() == null) {
+            newNode.setRed(false);
+            return;
+        }
+
+        if (newNode.getParent().getParent() == null) {
+            return;
+        }
+        fixAdd(newNode);
     }
 
     public void add(K key, V value) {

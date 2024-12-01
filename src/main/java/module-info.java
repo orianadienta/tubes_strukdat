@@ -4,6 +4,6 @@ module com.strukdat.strukdat {
     requires org.json;
 
 
-    opens com.strukdat to javafx.fxml;
+    opens com.strukdat.controllers to javafx.fxml; // Memberikan akses ke FXML
     exports com.strukdat;
 }
