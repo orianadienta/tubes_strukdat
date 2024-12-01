@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="Root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #00cccc;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.strukdat.controllers.SearchEngineController">
+    <children>
+        <Pane fx:id="TopPane" layoutX="300.0" layoutY="25.0" prefHeight="116.0" prefWidth="746.0" style="-fx-background-color: #00ffff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <ImageView fx:id="logoImage" fitHeight="116.0" fitWidth="749.0" layoutX="68.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" x="300.0">
+                  <image>
+                      <Image url="@image/IMG_20241127_111723_11zon.png" />
+                  </image>
+                  <effect>
+                      <Bloom>
+                          <input>
+                              <Lighting>
+                                  <bumpInput>
+                                      <Shadow>
+                                          <input>
+                                              <Glow />
+                                          </input>
+                                      </Shadow>
+                                  </bumpInput>
+                                  <light>
+                                      <Light.Distant />
+                                  </light>
+                              </Lighting>
+                          </input>
+                      </Bloom>
+                  </effect>
+                  <viewport>
+                      <Rectangle2D height="116.0" width="746.0" />
+                  </viewport>
+              </ImageView>
+         </children></Pane>
+        <TextField fx:id="inputField" layoutX="129.0" layoutY="198.0" onAction="#searchWord" prefHeight="44.0" prefWidth="405.0" style="-fx-background-radius: 30;" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="198.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+        <Button fx:id="searchButton" layoutX="1151.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="38.0" prefWidth="45.0" style="-fx-background-color: #ffffff;" textFill="#ffffff00" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="201.0">
+            <graphic>
+                <ImageView fx:id="searchImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@image/search.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <TextArea fx:id="resultArea" layoutX="134.0" layoutY="258.0" prefHeight="344.0" prefWidth="1078.0" style="-fx-background-radius: 30;" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="258.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextArea>
+        <Button fx:id="exitButton" layoutX="562.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="25.0" prefWidth="67.0" style="-fx-text-fill: #ffffff; -fx-background-color: #ff0000;" text="Exit" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
+            <effect>
+                <ColorAdjust />
+            </effect>
+        </Button>
+        <Text fx:id="Text1" fill="#e30dff" layoutX="601.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ask Real questions" textAlignment="CENTER" wrappingWidth="314.13671875">
+            <font>
+                <Font name="Bodoni MT" size="25.0" />
+            </font>
+            <effect>
+                <Bloom>
+                    <input>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </input>
+                </Bloom>
+            </effect>
+        </Text>
+        <Text fx:id="Text2" fill="#930ba4" layoutX="586.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Complete Answers" textAlignment="CENTER" wrappingWidth="344.13671875">
+            <font>
+                <Font name="Bodoni MT" size="35.0" />
+            </font>
+            <effect>
+                <Bloom>
+                    <input>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </input>
+                </Bloom>
+            </effect>
+        </Text>
+    </children>
+</AnchorPane>
